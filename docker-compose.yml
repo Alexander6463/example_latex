@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  minio:
+    image: 'minio/minio:latest'
+    command: server --console-address ":9001" /home/shared
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+
+  inference_service:
+    build:
+      context: .
+      target:
+        build
+    image: 'inference:v1'
+    ports:
+      - "8000:8000"
